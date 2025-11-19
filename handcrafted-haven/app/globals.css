@@ -1,20 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --primary: #44AF69;
-  --accent-red: #F8333C;
-  --accent-yellow: #FCAB10;
-  --accent-blue: #2B9EB3;
-  --neutral-light: #DBD5B5;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
