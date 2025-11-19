@@ -1,16 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 export default function UserStories() {
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState<string[]>([]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const story = e.target.story.value.trim();
+    const form = e.currentTarget;
+    const storyInput = form.elements.namedItem("story") as HTMLTextAreaElement;
+    const story = storyInput.value.trim();
     if (!story) return;
 
     setStories([...stories, story]);
-    e.target.reset();
+    form.reset();
   };
 
   return (
