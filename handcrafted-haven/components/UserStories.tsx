@@ -17,7 +17,9 @@ export default function UserStories() {
 
   return (
     <section className="px-6 py-16 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center">User Stories</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center font-roboto text-accentBlue">
+        User Stories
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <textarea

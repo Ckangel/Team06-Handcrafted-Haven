@@ -28,6 +28,10 @@ module.exports = {
       accentBlue: { DEFAULT: "#2B9EB3" },
       neutralLight: { DEFAULT: "#DBD5B5" },
     },
+    fontFamily: {
+      sans: ["var(--font-inter)", "sans-serif"],
+      roboto: ["var(--font-roboto)", "sans-serif"],
+    },
   },
   plugins: [],
 };

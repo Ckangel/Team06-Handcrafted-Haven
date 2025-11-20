@@ -23,7 +23,7 @@ export default function Hero() {
         ref={leftRef}
         className="opacity-0 translate-y-6 transition-all duration-700"
       >
-        <h1 className="text-4xl font-bold leading-tight">
+        <h1 className="text-4xl font-bold leading-tight font-roboto">
           Discover Unique <br />
           <span className="text-accentRed">Handcrafted</span> <br />
           Treasures
@@ -31,7 +31,7 @@ export default function Hero() {
         <p className="mt-4 text-gray-700">
           Explore one-of-a-kind artisanal products created with love and tradition.
         </p>
-        <button className="mt-6 px-6 py-3 text-white rounded-full w-fit hover:scale-105 transition bg-primary">
+        <button className="mt-6 px-6 py-3 text-black font-bold rounded-full w-fit hover:scale-105 transition bg-accentYellow">
           Shop Now
         </button>
       </div>
