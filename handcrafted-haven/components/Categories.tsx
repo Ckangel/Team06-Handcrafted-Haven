@@ -3,7 +3,9 @@ export default function Categories() {
 
   return (
     <section className="px-6 py-16 text-center">
-      <h2 className="text-2xl font-bold mb-6">Explore Categories</h2>
+      <h2 className="text-2xl font-bold mb-6 font-roboto text-accentBlue">
+        Explore Categories
+      </h2>
 
       <div className="flex justify-center gap-8 mt-6 flex-wrap">
         {cats.map((cat) => (
