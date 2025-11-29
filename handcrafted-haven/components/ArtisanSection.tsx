@@ -1,3 +1,6 @@
+"use client";
+import { Heart, Star } from "lucide-react";
+
 export default function ArtisanSection() {
   const artisans = [
     { id: 1, name: "Sarah Chen", title: "The Potter" },
