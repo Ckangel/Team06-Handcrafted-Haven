@@ -1,6 +1,7 @@
 import Navbar from "@/components/NavBar";
 import Hero from "@/components/Hero";
-import Categories from "@/components/Categories";
+import { Categories } from "@/components/Categories";
+
 import FeaturedProducts from "@/components/FeaturedProducts";
 import ArtisanSection from "@/components/ArtisanSection";
 import UserStories from "@/components/UserStories";
