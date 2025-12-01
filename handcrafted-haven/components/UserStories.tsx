@@ -16,26 +16,34 @@ export default function UserStories() {
   };
 
   return (
-    <section className="px-6 py-16 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center font-roboto text-accentBlue">
-        User Stories
-      </h2>
+    <section className="py-16 bg-gradient-to-r from-[#f8333c] to-[#fcab10]">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center text-white space-y-6">
 
-      <form onSubmit={handleSubmit}>
-        <textarea
-          name="story"
-          placeholder="Write your story here..."
-          className="w-full border p-3 rounded-lg"
-          rows={4}
-        ></textarea>
-        <button className="mt-4 px-6 py-2 text-white rounded hover:opacity-90 bg-accentBlue">
-          Submit
-        </button>
-      </form>
+          <h2 className="text-white text-3xl font-semibold">User Stories</h2>
+          <p className="text-white/90 max-w-xl mx-auto">
+            Share your experience, ideas, or suggestions about using Handcrafted Haven.
+            Your feedback helps us improve the platform and support artisans worldwide.
+          </p>
 
-      <div className="mt-8 space-y-3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto w-full pt-4">
+            <textarea
+              name="story"
+              placeholder="Write your user story here..."
+              className="w-full border border-white p-3 rounded-lg bg-transparent text-white placeholder-white/80"
+              rows={4}
+            ></textarea>
+            <button className="px-8 py-3 border-1 border-white rounded-lg">
+              Submit
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+      <div className="mt-8 space-y-3 max-w-xl mx-auto px-4">
         {stories.map((s, i) => (
-          <div key={i} className="p-3 rounded shadow-sm bg-neutralLight">
+          <div key={i} className="p-3 rounded shadow-sm bg-white text-black">
             {s}
           </div>
         ))}
