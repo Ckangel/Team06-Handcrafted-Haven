@@ -9,6 +9,7 @@ export default function ArtisansPage() {
       title: "The Potter",
       specialty: "Pottery",
       bio: "Creating beautiful ceramic pieces inspired by traditional techniques.",
+      image:"https://unsplash.com/collections/8955871/face",
     },
     {
       id: 2,
