@@ -1,19 +1,9 @@
 import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import { getProducts } from "@/app/lib/data";
 
-export default function ShopPage() {
-  const products = [
-    { id: 1, name: "Woven Mat", price: "$45.00", category: "Woven Mats" },
-    { id: 2, name: "Ceramic Vase", price: "$32.00", category: "Pottery" },
-    { id: 3, name: "Silver Pendant", price: "$28.00", category: "Silver Pendants" },
-    { id: 4, name: "Carved Wooden Bowl", price: "$55.00", category: "Carved Wood" },
-    { id: 5, name: "Handwoven Blanket", price: "$80.00", category: "Hand Woven Blankets" },
-    { id: 6, name: "Bronze Mask", price: "$120.00", category: "Benin Bronze Masks" },
-    { id: 7, name: "Wooden Sculpture", price: "$95.00", category: "Sculpture" },
-    { id: 8, name: "Kente Tie", price: "$40.00", category: "Local Kente Ties" },
-    { id: 9, name: "Nativity Set", price: "$150.00", category: "Wooden Nativity Sets" },
-    { id: 10, name: "Aso Oke Cloth", price: "$110.00", category: "Aso Oke / Jorge" },
-  ];
+export default async function ShopPage() {
+  const products = await getProducts();
 
   return (
     <>
@@ -23,6 +13,7 @@ export default function ShopPage() {
           Shop All Products
         </h1>
 
+        {/* Filter */}
         <div className="mb-8">
           <label htmlFor="filter" className="mr-4 font-semibold">
             Filter by Category:
@@ -32,29 +23,49 @@ export default function ShopPage() {
             className="border border-gray-300 rounded px-4 py-2"
           >
             <option value="">All Categories</option>
-            <option value="woven">Woven Mats</option>
-            <option value="pottery">Pottery</option>
-            <option value="silver">Silver Pendants</option>
-            <option value="wood">Carved Wood</option>
-            <option value="blankets">Hand Woven Blankets</option>
-            <option value="bronze">Benin Bronze Masks</option>
-            <option value="sculpture">Sculpture</option>
-            <option value="ties">Local Kente Ties</option>
-            <option value="nativity">Wooden Nativity Sets</option>
-            <option value="aso">Aso Oke / Jorge</option>
+            <option value="Woven Mats">Woven Mats</option>
+            <option value="Pottery">Pottery</option>
+            <option value="Silver Pendants">Silver Pendants</option>
+            <option value="Carved Wood">Carved Wood</option>
+            <option value="Hand Woven Blankets">Hand Woven Blankets</option>
+            <option value="Benin Bronze Masks">Benin Bronze Masks</option>
+            <option value="Sculpture">Sculpture</option>
+            <option value="Local Kente Ties">Local Kente Ties</option>
+            <option value="Wooden Nativity Sets">Wooden Nativity Sets</option>
+            <option value="Aso Oke">Aso Oke</option>
           </select>
         </div>
 
+        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map((product) => (
             <div
               key={product.id}
               className="flex flex-col items-start text-left group cursor-pointer"
             >
-              <div className="w-full h-64 bg-gray-200 rounded-lg mb-4 transition-transform group-hover:scale-105"></div>
+              {/* IMAGE */}
+              <div className="w-full h-64 mb-4 rounded-lg overflow-hidden bg-gray-200">
+                {product.image_url ? (
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-gray-300" />
+                )}
+              </div>
+
+              {/* NAME */}
               <h3 className="font-bold text-lg">{product.name}</h3>
-              <p className="text-gray-500 text-sm">{product.category}</p>
-              <p className="font-semibold text-primary mt-1">{product.price}</p>
+
+              {/* CATEGORY */}
+              <p className="text-gray-500 text-sm">{product.artisan}</p>
+
+              {/* PRICE */}
+              <p className="font-semibold text-primary mt-1">
+                ${product.price}
+              </p>
             </div>
           ))}
         </div>
