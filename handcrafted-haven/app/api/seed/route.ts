@@ -12,7 +12,7 @@ export async function GET() {
         rating: 4.8,
         reviews: 124,
         image:
-          https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral%22
+          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       },
       {
         name: "Ceramic Vase",
@@ -22,7 +22,7 @@ export async function GET() {
         rating: 4.3,
         reviews: 111,
         image:
-          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080%22,
+          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         badge: "New",
       },
       {
@@ -33,7 +33,7 @@ export async function GET() {
         rating: 4.5,
         reviews: 101,
         image:
-          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080%22,
+          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         badge: "New",
       },
       {
@@ -44,7 +44,7 @@ export async function GET() {
         rating: 4.2,
         reviews: 89,
         image:
-          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080%22,
+          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         badge: "New",
       },
       {
@@ -55,7 +55,7 @@ export async function GET() {
         rating: 4.8,
         reviews: 89,
         image:
-          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080%22,
+          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         badge: "New",
       },
       {
@@ -66,7 +66,7 @@ export async function GET() {
         rating: 4.9,
         reviews: 200,
         image:
-          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080%22,
+          "https://images.unsplash.com/photo-1642582615780-35343a19fd65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMHBvdHRlcnklMjBjcmFmdHN8ZW58MXx8fHwxNzYyMzQ0MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         badge: "New",
       },
     ];
