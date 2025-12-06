@@ -2,11 +2,16 @@ import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { getArtisanById, getProductsByArtisan } from "@/app/lib/data";
 
-export default async function ArtisanProfilePage({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
+export default async function ArtisanProfilePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const artisanId = Number(id);
 
-  const artisan = await getArtisanById(id);
-  const products = await getProductsByArtisan(id);
+  const artisan = await getArtisanById(artisanId);
+  const products = await getProductsByArtisan(artisanId);
 
   if (!artisan) {
     return (
@@ -19,6 +24,7 @@ export default async function ArtisanProfilePage({ params }: { params: { id: str
   return (
     <>
       <Navbar />
+
       <main className="min-h-screen px-6 py-16 max-w-6xl mx-auto">
 
         {/* Artisan Header */}
@@ -46,7 +52,7 @@ export default async function ArtisanProfilePage({ params }: { params: { id: str
         <h2 className="text-3xl font-bold mb-6">Crafted Items</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {products.map(product => (
+          {products.map((product) => (
             <div key={product.id} className="cursor-pointer">
               <div className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden">
                 <img
@@ -61,6 +67,7 @@ export default async function ArtisanProfilePage({ params }: { params: { id: str
         </div>
 
       </main>
+
       <Footer />
     </>
   );
