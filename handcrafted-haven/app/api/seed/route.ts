@@ -3,27 +3,47 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    // ---------- INSERT SELLERS ----------
+    // INSERT CATEGORIES
+    const categoryData = [
+      { name: "Pottery" },
+      { name: "Silver Pendants" },
+      { name: "Woven Mats" },
+      { name: "Carved Wood" }
+    ];
+
+    const categoryIds = [];
+    for (const c of categoryData) {
+      const result = await sql`
+        INSERT INTO categories (name)
+        VALUES (${c.name})
+        RETURNING id;
+      `;
+      categoryIds.push(result[0].id);
+    }
+
+    // --------------------------
+    // INSERT SELLERS (igual ao seu)
+    // --------------------------
+
     const sellers = [
       {
         name: "Willow & Roots Studio",
-        bio: "Handcrafted home goods inspired by nature and traditional crafting methods.",
+        bio: "Handcrafted home goods inspired by nature.",
         profile_image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
       },
       {
         name: "Oakstone Woodcraft",
-        bio: "Sustainable wooden pieces crafted with precision and artistic detail.",
+        bio: "Sustainable wooden pieces crafted with precision.",
         profile_image: "https://images.unsplash.com/photo-1503602642458-232111445657"
       },
       {
         name: "Stitch & Bloom Crochet",
-        bio: "Modern crochet designs made with vibrant colors and premium yarn.",
+        bio: "Modern crochet designs made with vibrant colors.",
         profile_image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f"
       }
     ];
 
     const sellerIds = [];
-
     for (const s of sellers) {
       const result = await sql`
         INSERT INTO sellers (name, bio, profile_image)
@@ -33,118 +53,48 @@ export async function GET() {
       sellerIds.push(result[0].id);
     }
 
-// ---------- INSERT PRODUCTS ----------
-const products = [
-  {
-    seller_id: sellerIds[0],
-    name: "Natural Fiber Woven Basket",
-    price: 89.90,
-    original_price: 120.00,
-    image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc",
-    badge: "Bestseller"
-  },
-  {
-    seller_id: sellerIds[0],
-    name: "Handwoven Table Placemats Set",
-    price: 129.90,
-    original_price: null,
-    image_url: "https://images.unsplash.com/photo-1598020467268-83d67f1e3d30",
-    badge: "Handmade"
-  },
-  {
-    seller_id: sellerIds[1],
-    name: "Minimalist Wooden Sculpture",
-    price: 199.90,
-    original_price: 249.90,
-    image_url: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
-    badge: "New"
-  },
-  {
-    seller_id: sellerIds[1],
-    name: "Premium Hardwood Cutting Board",
-    price: 149.00,
-    original_price: null,
-    image_url: "https://images.unsplash.com/photo-1601049436430-07a4b3c95df9",
-    badge: "Top Rated"
-  },
-  {
-    seller_id: sellerIds[2],
-    name: "Crochet Coaster Set",
-    price: 39.90,
-    original_price: 49.90,
-    image_url: "https://images.unsplash.com/photo-1616628182506-5cb364a7d1c1",
-    badge: null
-  },
-  {
-    seller_id: sellerIds[2],
-    name: "Cozy Handcrafted Crochet Blanket",
-    price: 189.90,
-    original_price: 210.00,
-    image_url: "https://images.unsplash.com/photo-1552346989-df19a4a47386",
-    badge: "Featured"
-  }
-];
+    // --------------------------
+    // INSERT PRODUCTS WITH category_id
+    // --------------------------
 
-    const productIds = [];
-
-    for (const p of products) {
-      const result = await sql`
-        INSERT INTO products (seller_id, name, price, original_price, image_url, badge)
-        VALUES (
-          ${p.seller_id},
-          ${p.name},
-          ${p.price},
-          ${p.original_price},
-          ${p.image_url},
-          ${p.badge}
-        )
-        RETURNING id;
-      `;
-      productIds.push(result[0].id);
-    }
-
-    // ---------- INSERT REVIEWS ----------
-    const reviews = [
+    const products = [
       {
-        product_id: productIds[0],
-        rating: 5,
-        comment: "Amazing quality! Even better than expected.",
-        user_name: "Emily"
+        seller_id: sellerIds[0],
+        category_id: categoryIds[0], // Pottery
+        name: "Decorative Clay Pot",
+        price: 45.00,
+        original_price: 60.00,
+        image_url: "https://images.unsplash.com/photo-1602526215346-2f3b909a87e4",
+        badge: "Popular"
       },
       {
-        product_id: productIds[1],
-        rating: 4,
-        comment: "Beautiful craftsmanship. Worth every penny!",
-        user_name: "Sarah"
+        seller_id: sellerIds[1],
+        category_id: categoryIds[3], // Carved Wood
+        name: "Carved Wooden Mask",
+        price: 150.00,
+        original_price: null,
+        image_url: "https://images.unsplash.com/photo-1503602642458-232111445657",
+        badge: "New"
       },
       {
-        product_id: productIds[3],
-        rating: 5,
-        comment: "The cutting board is perfect. Excellent finish!",
-        user_name: "Michael"
-      },
-      {
-        product_id: productIds[4],
-        rating: 3,
-        comment: "Nice product, but shipping took longer than expected.",
-        user_name: "Daniel"
-      },
-      {
-        product_id: productIds[5],
-        rating: 5,
-        comment: "The blanket is incredibly soft and warm. Love it!",
-        user_name: "Jessica"
+        seller_id: sellerIds[2],
+        category_id: categoryIds[2], // Woven Mats
+        name: "Traditional Woven Mat",
+        price: 80.00,
+        original_price: 95.00,
+        image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc",
+        badge: null
       }
     ];
 
-    for (const r of reviews) {
+    for (const p of products) {
       await sql`
-        INSERT INTO reviews (product_id, rating, comment, user_name)
-        VALUES (${r.product_id}, ${r.rating}, ${r.comment}, ${r.user_name});
+        INSERT INTO products (seller_id, category_id, name, price, original_price, image_url, badge)
+        VALUES (${p.seller_id}, ${p.category_id}, ${p.name}, ${p.price}, ${p.original_price}, ${p.image_url}, ${p.badge});
       `;
     }
 
-    return NextResponse.json({ message: "Seed completed with handcrafted English data!" });
+    return NextResponse.json({ message: "Seed completed successfully!" });
 
   } catch (error) {
     return NextResponse.json(
