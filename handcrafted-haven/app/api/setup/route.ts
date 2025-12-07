@@ -7,8 +7,17 @@ export async function GET() {
     await sql`DROP TABLE IF EXISTS reviews CASCADE;`;
     await sql`DROP TABLE IF EXISTS products CASCADE;`;
     await sql`DROP TABLE IF EXISTS sellers CASCADE;`;
+    await sql`DROP TABLE IF EXISTS categories CASCADE;`;
 
-    // RECREATE sellers
+    // CREATE categories
+    await sql`
+      CREATE TABLE categories (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL UNIQUE
+      );
+    `;
+
+    // CREATE sellers
     await sql`
       CREATE TABLE sellers (
         id SERIAL PRIMARY KEY,
@@ -19,11 +28,12 @@ export async function GET() {
       );
     `;
 
-    // RECREATE products
+    // CREATE products
     await sql`
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
         seller_id INTEGER REFERENCES sellers(id),
+        category_id INTEGER REFERENCES categories(id),
         name TEXT NOT NULL,
         price NUMERIC NOT NULL,
         original_price NUMERIC,
@@ -33,7 +43,7 @@ export async function GET() {
       );
     `;
 
-    // RECREATE reviews
+    // CREATE reviews
     await sql`
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,

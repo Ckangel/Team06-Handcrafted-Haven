@@ -1,9 +1,22 @@
 import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { getProducts } from "@/app/lib/data";
+import CategoryFilter from "@/components/CategoryFilter";
 
-export default async function ShopPage() {
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  
+  const params = await searchParams;
+  const category = (params?.category as string) || "";
+
   const products = await getProducts();
+
+  const filtered = category
+    ? products.filter((p) => p.category === category)
+    : products;
 
   return (
     <>
@@ -15,57 +28,25 @@ export default async function ShopPage() {
 
         {/* Filter */}
         <div className="mb-8">
-          <label htmlFor="filter" className="mr-4 font-semibold">
-            Filter by Category:
-          </label>
-          <select
-            id="filter"
-            className="border border-gray-300 rounded px-4 py-2"
-          >
-            <option value="">All Categories</option>
-            <option value="Woven Mats">Woven Mats</option>
-            <option value="Pottery">Pottery</option>
-            <option value="Silver Pendants">Silver Pendants</option>
-            <option value="Carved Wood">Carved Wood</option>
-            <option value="Hand Woven Blankets">Hand Woven Blankets</option>
-            <option value="Benin Bronze Masks">Benin Bronze Masks</option>
-            <option value="Sculpture">Sculpture</option>
-            <option value="Local Kente Ties">Local Kente Ties</option>
-            <option value="Wooden Nativity Sets">Wooden Nativity Sets</option>
-            <option value="Aso Oke">Aso Oke</option>
-          </select>
-        </div>
+  <CategoryFilter currentCategory={category} />
+</div>
 
-        {/* Product Grid */}
+
+        {/* Products */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="flex flex-col items-start text-left group cursor-pointer"
-            >
-              {/* IMAGE */}
+          {filtered.map((product) => (
+            <div key={product.id} className="flex flex-col cursor-pointer">
               <div className="w-full h-64 mb-4 rounded-lg overflow-hidden bg-gray-200">
-                {product.image_url ? (
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <div className="h-full w-full bg-gray-300" />
-                )}
+                <img
+                  src={product.image_url ?? "https://via.placeholder.com/400"}
+
+                  alt={product.name}
+                  className="h-full w-full object-cover hover:scale-105 transition-transform"
+                />
               </div>
-
-              {/* NAME */}
               <h3 className="font-bold text-lg">{product.name}</h3>
-
-              {/* CATEGORY */}
               <p className="text-gray-500 text-sm">{product.artisan}</p>
-
-              {/* PRICE */}
-              <p className="font-semibold text-primary mt-1">
-                ${product.price}
-              </p>
+              <p className="font-semibold">${product.price}</p>
             </div>
           ))}
         </div>
