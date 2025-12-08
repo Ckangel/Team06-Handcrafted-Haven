@@ -95,6 +95,13 @@ export async function GET() {
         profile_image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
         title: "Leather Craftsman",
         specialty: "Leather Goods"
+      },
+      {
+        name: "Christopher Edeson",
+        bio: "Passionate artisan blending modern design with traditional craftsmanship. Creating unique pieces that tell stories and inspire creativity.",
+        profile_image: "https://edesonchristopher.netlify.app/assets/christopher-fresh-BOQ1-Dev.jpeg",
+        title: "Master Craftsman",
+        specialty: "Mixed Media & Custom Designs"
       }
     ];
 
@@ -151,6 +158,13 @@ export async function GET() {
       // Sculpture (shared sellers)
       { seller_idx: 1, category: "Sculpture", name: "Abstract Stone Sculpture", price: 280.00, original_price: 350.00, image_url: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=500", badge: "Gallery Piece" },
       { seller_idx: 4, category: "Sculpture", name: "Bronze Figure Sculpture", price: 195.00, original_price: null, image_url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500", badge: null },
+
+      // Christopher Edeson (seller 6) - Mixed Media & Custom Designs
+      { seller_idx: 6, category: "Sculpture", name: "Modern Abstract Art Piece", price: 350.00, original_price: 450.00, image_url: "https://ik.imagekit.io/theartling/prod/products/Product/065d0e64a3514880bf2398126d0bcdca_sw-3815_sh-2501.jpg", badge: "Featured" },
+      { seller_idx: 6, category: "Carved Wood", name: "Contemporary Wooden Wall Art", price: 185.00, original_price: 230.00, image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500", badge: "Exclusive" },
+      { seller_idx: 6, category: "Pottery", name: "Artistic Ceramic Sculpture", price: 125.00, original_price: null, image_url: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=500", badge: "New" },
+      { seller_idx: 6, category: "Beaded Jewelry", name: "Designer Beaded Art Necklace", price: 95.00, original_price: 120.00, image_url: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500", badge: "Trending" },
+      { seller_idx: 6, category: "Leather Goods", name: "Custom Leather Journal", price: 65.00, original_price: 85.00, image_url: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500", badge: "Bestseller" },
     ];
 
     let insertedCount = 0;

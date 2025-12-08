@@ -33,7 +33,10 @@ export default function UserStories() {
               className="w-full border border-white p-3 rounded-lg bg-transparent text-white placeholder-white/80"
               rows={4}
             ></textarea>
-            <button className="px-8 py-3 border-1 border-white rounded-lg">
+            <button 
+              type="submit"
+              className="px-8 py-3 border-2 border-white rounded-lg font-medium text-white hover:bg-white hover:text-[#f8333c] transition-colors"
+            >
               Submit
             </button>
           </form>
