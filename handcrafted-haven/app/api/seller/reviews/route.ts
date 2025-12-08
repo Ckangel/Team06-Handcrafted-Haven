@@ -33,7 +33,7 @@ export async function GET() {
       SELECT 
         r.id,
         r.rating,
-        r.comment,
+        r.content,
         r.created_at as "createdAt",
         p.id as "productId",
         p.name as "productName",
