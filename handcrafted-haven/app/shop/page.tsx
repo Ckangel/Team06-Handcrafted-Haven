@@ -84,7 +84,7 @@ export default async function ShopPage({
                       id: String(product.id),
                       name: product.name,
                       price: Number(product.price),
-                      image: product.image_url,
+                      image: product.image_url ?? undefined,
                       artisanName: product.artisan,
                     }}
                   />
