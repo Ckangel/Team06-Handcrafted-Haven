@@ -125,7 +125,7 @@ export default function FeaturedProducts() {
                       src={product.image_url}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => (e.currentTarget.src = "/fallback.png")}
+                      onError={(e) => (e.currentTarget.src = "/android-chrome-512x512.png")}
                     />
 
                     {/* BADGE */}
