@@ -1,5 +1,3 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 import { getArtisanById, getProductsByArtisan } from "@/app/lib/data";
 
 export default async function ArtisanProfilePage({
@@ -22,10 +20,7 @@ export default async function ArtisanProfilePage({
   }
 
   return (
-    <>
-      <Navbar />
-
-      <main className="min-h-screen px-6 py-16 max-w-6xl mx-auto">
+      <div className="px-6 py-16 max-w-6xl mx-auto">
 
         {/* Artisan Header */}
         <section className="flex flex-col md:flex-row gap-8 items-start mb-12">
@@ -66,9 +61,6 @@ export default async function ArtisanProfilePage({
           ))}
         </div>
 
-      </main>
-
-      <Footer />
-    </>
+      </div>
   );
 }

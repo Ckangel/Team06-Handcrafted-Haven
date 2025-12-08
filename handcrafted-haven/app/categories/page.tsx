@@ -1,6 +1,3 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-
 export default function CategoriesPage() {
   const categories = [
     {
@@ -66,9 +63,7 @@ export default function CategoriesPage() {
   ];
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen px-6 py-16 max-w-7xl mx-auto">
+      <div className="px-6 py-16 max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-4 font-roboto text-accentBlue">
           Browse by Category
         </h1>
@@ -94,8 +89,6 @@ export default function CategoriesPage() {
             </div>
           ))}
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
   );
 }

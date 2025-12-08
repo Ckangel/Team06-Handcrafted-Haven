@@ -1,11 +1,6 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-
 export default function AboutPage() {
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen px-6 py-16 max-w-5xl mx-auto">
+      <div className="px-6 py-16 max-w-5xl mx-auto">
         <h1 className="text-4xl font-bold mb-6 font-roboto text-accentBlue">
           About Handcrafted Haven
         </h1>
@@ -88,8 +83,6 @@ export default function AboutPage() {
             Get Started
           </button>
         </section>
-      </main>
-      <Footer />
-    </>
+      </div>
   );
 }

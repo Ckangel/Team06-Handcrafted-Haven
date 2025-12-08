@@ -14,6 +14,7 @@ if (!connectionString) {
 
 export const sql = postgres(connectionString, {
   ssl: "require",
+  prepare: false, // Disable prepared statements to avoid cached plan issues with schema changes
 });
 
 console.log("📌 USING DATABASE:", connectionString);

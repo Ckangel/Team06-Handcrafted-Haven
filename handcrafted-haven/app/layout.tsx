@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto, Inter } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
+import Navbar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -25,7 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${inter.variable} antialiased font-sans`}>
-        {children}
+        <Providers>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
