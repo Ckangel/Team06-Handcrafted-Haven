@@ -106,7 +106,7 @@ export default function FeaturedProducts() {
         {products.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-500">No featured products available at the moment.</p>
-            <Link href="/shop" className="text-amber-600 hover:text-amber-700 mt-2 inline-block">
+            <Link href="/shop" className="text-amber-600 hover:text-amber-700 mt-2 inline-block" title="Browse all products">
               Browse all products →
             </Link>
           </div>
@@ -116,6 +116,7 @@ export default function FeaturedProducts() {
               <div
                 key={product.id}
                 className="group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-xl border border-gray-100 hover:border-gray-200 transition-all"
+                title={`${product.name} by ${product.artisan}`}
               >
                 {/* IMAGE */}
                 <Link href={`/shop/${product.id}`}>
@@ -142,6 +143,7 @@ export default function FeaturedProducts() {
                       onClick={(e) => handleToggleWishlist(e, product.id)}
                       disabled={togglingWishlist === product.id}
                       aria-label={isInWishlist(product.id) ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+                      title={isInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
                     >
                       {togglingWishlist === product.id ? (
                         <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
@@ -161,7 +163,7 @@ export default function FeaturedProducts() {
                 {/* CONTENT */}
                 <div className="p-4 space-y-3">
                   <div>
-                    <Link href={`/shop/${product.id}`} className="hover:text-amber-600 transition-colors">
+                    <Link href={`/shop/${product.id}`} className="hover:text-amber-600 transition-colors" title={`View ${product.name} details`}>
                       <h3 className="text-gray-900 font-semibold line-clamp-1">{product.name}</h3>
                     </Link>
                     <p className="text-gray-600 text-sm">by {product.artisan}</p>
@@ -201,6 +203,7 @@ export default function FeaturedProducts() {
                       disabled={addingToCart === product.id}
                       className="px-3 py-1.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 transition-all"
                       aria-label={`Add ${product.name} to cart`}
+                      title={`Add ${product.name} to cart`}
                     >
                       {addingToCart === product.id ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
@@ -222,6 +225,7 @@ export default function FeaturedProducts() {
           <Link
             href="/shop"
             className="inline-flex items-center px-8 py-3 rounded-lg font-medium text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-md hover:shadow-lg transition-all"
+            title="View all products"
           >
             View All Products
           </Link>

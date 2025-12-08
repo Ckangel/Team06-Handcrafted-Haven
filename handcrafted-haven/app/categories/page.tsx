@@ -15,6 +15,36 @@ async function getCategoriesWithCounts() {
   `;
 }
 
+const categoryIcons: Record<string, string> = {
+  Pottery: "🏺",
+  "Silver Pendants": "💎",
+  "Woven Mats": "🧶",
+  "Carved Wood": "🪵",
+  "Hand Woven Blankets": "🧣",
+  Sculpture: "🗿",
+  "Wooden Nativity Sets": "⭐",
+  "Benin Bronze Masks": "🎭",
+  "Local Kente Ties": "👔",
+  "Aso Oke / Jorge": "🎨",
+  "Beaded Jewelry": "📿",
+  "Leather Goods": "👜",
+};
+
+const categoryColors: Record<string, string> = {
+  Pottery: "from-amber-500 to-orange-500",
+  "Silver Pendants": "from-purple-500 to-pink-500",
+  "Woven Mats": "from-blue-500 to-cyan-500",
+  "Carved Wood": "from-emerald-600 to-green-500",
+  "Hand Woven Blankets": "from-rose-500 to-red-500",
+  Sculpture: "from-slate-600 to-gray-500",
+  "Wooden Nativity Sets": "from-yellow-500 to-amber-500",
+  "Benin Bronze Masks": "from-orange-600 to-amber-600",
+  "Local Kente Ties": "from-indigo-500 to-purple-500",
+  "Aso Oke / Jorge": "from-fuchsia-500 to-pink-500",
+  "Beaded Jewelry": "from-teal-500 to-cyan-500",
+  "Leather Goods": "from-amber-700 to-orange-700",
+};
+
 export default async function CategoriesPage() {
   const categories = await getCategoriesWithCounts();
 
@@ -41,8 +71,13 @@ export default async function CategoriesPage() {
                 key={category.id}
                 className="flex flex-col items-center text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:border-[#44AF69] transition-all cursor-pointer group"
               >
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                  {category.name.charAt(0)}
+                <div
+                  className={`w-20 h-20 rounded-full bg-gradient-to-br ${categoryColors[category.name] || "from-gray-500 to-gray-600"} mb-4 flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform`}
+                  aria-hidden="true"
+                >
+                  <span>
+                    {categoryIcons[category.name] || category.name.charAt(0)}
+                  </span>
                 </div>
                 <h3 className="font-bold text-lg mb-2 group-hover:text-[#44AF69] transition">{category.name}</h3>
                 {category.description && (
