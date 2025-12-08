@@ -1,5 +1,3 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 import { getProducts } from "@/app/lib/data";
 import CategoryFilter from "@/components/CategoryFilter";
 
@@ -19,9 +17,7 @@ export default async function ShopPage({
     : products;
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen px-6 py-16 max-w-7xl mx-auto">
+      <div className="px-6 py-16 max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 font-roboto text-accentBlue">
           Shop All Products
         </h1>
@@ -50,8 +46,6 @@ export default async function ShopPage({
             </div>
           ))}
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
   );
 }
