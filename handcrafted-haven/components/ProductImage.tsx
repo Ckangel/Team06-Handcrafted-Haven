@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const FALLBACK_IMAGE = "https://placehold.co/500x500/e2e8f0/64748b?text=No+Image";
+const FALLBACK_IMAGE = "/no-image-placeholder.jpg";
 
 interface ProductImageProps {
   src: string | null | undefined;
