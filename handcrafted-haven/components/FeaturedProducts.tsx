@@ -82,11 +82,9 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="text-center mt-12">
-          <Link href="/shop">
-  <button className="px-8 py-3 border-2 border-gray-900 rounded-lg">
-    View All Products
-  </button>
-</Link>
+          <Link href="/shop" className="inline-flex items-center px-8 py-3 border-2 border-gray-900 rounded-lg font-medium text-gray-900 hover:bg-gray-900 hover:text-white transition-colors">
+            View All Products
+          </Link>
         </div>
       </div>
 
