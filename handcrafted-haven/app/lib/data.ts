@@ -2,6 +2,11 @@ import { sql } from "./db";
 
 import type { Product } from "./types";
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 
 export async function getProducts(): Promise<Product[]> {
   return await sql<Product[]>`
@@ -88,8 +93,8 @@ export async function getProductsByArtisan(artisanId: number) {
   `;
 }
 
-export async function getCategories() {
-  return await sql`
+export async function getCategories(): Promise<Category[]> {
+  return await sql<Category[]>`
     SELECT id, name FROM categories ORDER BY name ASC;
   `;
 }
