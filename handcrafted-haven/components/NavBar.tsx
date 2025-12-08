@@ -72,7 +72,11 @@ export default function Navbar() {
             {/* Right side buttons */}
             <div className="flex items-center gap-3">
               {/* Wishlist */}
-              <Link href="/wishlist" className="relative p-2 rounded hover:bg-gray-100">
+              <Link 
+                href="/wishlist" 
+                className="relative p-2 rounded hover:bg-gray-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                aria-label={wishlistCount > 0 ? `Wishlist with ${wishlistCount} items` : "Wishlist"}
+              >
                 <Heart className="h-5 w-5 text-[#F8333C]" />
                 {wishlistCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-[#F8333C] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
@@ -82,7 +86,11 @@ export default function Navbar() {
               </Link>
 
               {/* Cart */}
-              <Link href="/cart" className="relative p-2 rounded hover:bg-gray-100">
+              <Link 
+                href="/cart" 
+                className="relative p-2 rounded hover:bg-gray-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                aria-label={itemCount > 0 ? `Cart with ${itemCount} items` : "Shopping cart"}
+              >
                 <ShoppingCart className="h-5 w-5 text-[#2b9eb3]" />
                 {itemCount > 0 && (
                   <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-600 text-white text-xs rounded-full flex items-center justify-center">
@@ -96,13 +104,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-2 ml-2">
                   <Link
                     href="/login"
-                    className="rounded-md bg-[#f8333c] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition"
+                    className="rounded-md bg-[#f8333c] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f8333c] focus-visible:ring-offset-2"
                   >
                     Login
                   </Link>
                   <Link
                     href="/signup"
-                    className="rounded-md border border-[#f8333c] px-4 py-2 text-sm font-medium text-[#f8333c] hover:bg-red-50 transition"
+                    className="rounded-md border border-[#f8333c] px-4 py-2 text-sm font-medium text-[#f8333c] hover:bg-red-50 transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f8333c] focus-visible:ring-offset-2"
                   >
                     Register
                   </Link>
@@ -111,7 +119,10 @@ export default function Navbar() {
                 <div ref={accountRef} className="relative ml-2">
                   <button
                     onClick={() => setAccountOpen(!accountOpen)}
-                    className="flex items-center gap-2 p-2 rounded hover:bg-gray-100"
+                    className="flex items-center gap-2 p-2 rounded hover:bg-gray-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                    aria-expanded={accountOpen}
+                    aria-haspopup="true"
+                    aria-label="Account menu"
                   >
                     <div className="h-8 w-8 rounded-full bg-[#2b9eb3] flex items-center justify-center text-white text-sm font-medium">
                       {user?.name?.charAt(0).toUpperCase() ?? "U"}
@@ -156,7 +167,7 @@ export default function Navbar() {
                       )}
                       <button
                         onClick={() => signOut({ callbackUrl: "/" })}
-                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer focus:outline-none focus-visible:bg-red-50"
                       >
                         <LogOut className="h-4 w-4" />
                         Sign Out
@@ -188,7 +199,9 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="rounded bg-gray-100 p-2 text-gray-600"
+              className="rounded bg-gray-100 p-2 text-gray-600 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              aria-expanded={mobileOpen}
+              aria-label="Toggle mobile menu"
             >
               <Menu className="h-5 w-5" />
             </button>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Star, Heart, ShoppingCart, Loader2 } from "lucide-react";
+import { useWishlist } from "@/app/context/WishlistContext";
 
 interface Product {
   id: number;
@@ -21,6 +22,8 @@ export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [addingToCart, setAddingToCart] = useState<number | null>(null);
+  const [togglingWishlist, setTogglingWishlist] = useState<number | null>(null);
+  const { isInWishlist, toggleItem } = useWishlist();
 
   useEffect(() => {
     async function fetchFeaturedProducts() {
@@ -58,6 +61,17 @@ export default function FeaturedProducts() {
       console.error("Error adding to cart:", error);
     } finally {
       setAddingToCart(null);
+    }
+  };
+
+  const handleToggleWishlist = async (e: React.MouseEvent, productId: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTogglingWishlist(productId);
+    try {
+      await toggleItem(productId);
+    } finally {
+      setTogglingWishlist(null);
     }
   };
 
@@ -122,12 +136,24 @@ export default function FeaturedProducts() {
 
                     {/* HEART BUTTON */}
                     <button 
-                      className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white p-2 rounded-full shadow hover:bg-gray-50"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
+                      className={`absolute top-3 right-3 transition-all bg-white p-2 rounded-full shadow cursor-pointer hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 ${
+                        isInWishlist(product.id) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
+                      onClick={(e) => handleToggleWishlist(e, product.id)}
+                      disabled={togglingWishlist === product.id}
+                      aria-label={isInWishlist(product.id) ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
                     >
-                      <Heart className="h-4 w-4 text-gray-700" />
+                      {togglingWishlist === product.id ? (
+                        <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+                      ) : (
+                        <Heart 
+                          className={`h-4 w-4 transition-colors ${
+                            isInWishlist(product.id) 
+                              ? "fill-red-500 text-red-500" 
+                              : "text-gray-700 hover:text-red-500"
+                          }`} 
+                        />
+                      )}
                     </button>
                   </div>
                 </Link>
@@ -173,7 +199,8 @@ export default function FeaturedProducts() {
                     <button
                       onClick={() => handleAddToCart(product)}
                       disabled={addingToCart === product.id}
-                      className="px-3 py-1.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 disabled:opacity-50 flex items-center gap-1"
+                      className="px-3 py-1.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 transition-all"
+                      aria-label={`Add ${product.name} to cart`}
                     >
                       {addingToCart === product.id ? (
                         <Loader2 className="h-4 w-4 animate-spin" />

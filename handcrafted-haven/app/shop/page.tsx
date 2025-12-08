@@ -3,6 +3,7 @@ import CategoryFilter from "@/components/CategoryFilter";
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductImage from "@/components/ProductImage";
+import WishlistButton from "@/components/WishlistButton";
 
 export default async function ShopPage({
   searchParams,
@@ -34,10 +35,23 @@ export default async function ShopPage({
         </div>
 
         {/* Products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div 
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          role="list"
+          aria-label="Products"
+        >
           {filtered.map((product) => (
-            <div key={product.id} className="flex flex-col bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link href={`/shop/${product.id}`}>
+            <article 
+              key={product.id} 
+              className="group flex flex-col bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+              role="listitem"
+              aria-label={`${product.name} by ${product.artisan}`}
+            >
+              <Link 
+                href={`/shop/${product.id}`}
+                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-amber-500"
+                aria-label={`View details for ${product.name}`}
+              >
                 <div className="w-full h-64 overflow-hidden bg-gray-200 relative">
                   <ProductImage
                     src={product.image_url}
@@ -45,16 +59,26 @@ export default async function ShopPage({
                     fill
                     className="hover:scale-105 transition-transform"
                   />
+                  {/* Wishlist Button */}
+                  <div className="absolute top-2 right-2 z-10">
+                    <WishlistButton 
+                      productId={product.id} 
+                      productName={product.name}
+                      showOnHover
+                    />
+                  </div>
                 </div>
               </Link>
               <div className="p-4 flex flex-col flex-1">
-                <Link href={`/shop/${product.id}`} className="hover:text-[#44AF69]">
+                <Link href={`/shop/${product.id}`} className="hover:text-[#44AF69] cursor-pointer focus:outline-none focus-visible:underline">
                   <h3 className="font-bold text-lg">{product.name}</h3>
                 </Link>
                 <p className="text-gray-500 text-sm">{product.artisan}</p>
                 <p className="text-sm text-gray-400">{product.category}</p>
                 <div className="flex items-center justify-between mt-auto pt-3">
-                  <p className="font-semibold text-lg">${product.price}</p>
+                  <p className="font-semibold text-lg" aria-label={`Price: $${product.price}`}>
+                    ${product.price}
+                  </p>
                   <AddToCartButton 
                     product={{
                       id: String(product.id),
@@ -66,7 +90,7 @@ export default async function ShopPage({
                   />
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 

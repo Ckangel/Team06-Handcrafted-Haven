@@ -215,7 +215,8 @@ export default function UserStories() {
               {!showForm ? (
                 <button
                   onClick={() => setShowForm(true)}
-                  className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#f8333c] to-[#fcab10] text-white rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg"
+                  className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#f8333c] to-[#fcab10] text-white rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f8333c] focus-visible:ring-offset-2"
+                  aria-label="Open form to share your story"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -271,13 +272,13 @@ export default function UserStories() {
                       <button
                         type="button"
                         onClick={() => setShowForm(false)}
-                        className="flex-1 px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                        className="flex-1 px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
-                        className="flex-1 px-6 py-2 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition-colors"
+                        className="flex-1 px-6 py-2 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#44AF69] focus-visible:ring-offset-2"
                       >
                         Submit Story
                       </button>
@@ -311,33 +312,35 @@ export default function UserStories() {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B9EB3]"
               aria-label="Previous testimonial"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B9EB3]"
               aria-label="Next testimonial"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="flex justify-center gap-2 mt-6" role="tablist" aria-label="Testimonial navigation">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
+                  className={`w-3 h-3 rounded-full transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B9EB3] ${
                     idx === currentSlide ? "bg-[#2B9EB3]" : "bg-gray-300 hover:bg-gray-400"
                   }`}
                   aria-label={`Go to testimonial ${idx + 1}`}
+                  aria-selected={idx === currentSlide}
+                  role="tab"
                 />
               ))}
             </div>
@@ -346,10 +349,10 @@ export default function UserStories() {
             <div className="text-center mt-10">
               <p className="text-gray-600 mb-4">Want to share your own story?</p>
               <Link
-                href="/auth/signin"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#2B9EB3] to-[#44AF69] text-white rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg"
+                href="/login"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#2B9EB3] to-[#44AF69] text-white rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B9EB3] focus-visible:ring-offset-2"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                 </svg>
                 Sign In to Share Your Story

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductImage from "@/components/ProductImage";
+import WishlistButton from "@/components/WishlistButton";
 import { sql } from "@/app/lib/db";
 
 async function getProductReviews(productId: number) {
@@ -44,13 +45,13 @@ export default async function ProductDetailPage({
   return (
     <div className="px-6 py-16 max-w-6xl mx-auto">
       {/* Breadcrumb */}
-      <nav className="mb-8">
+      <nav className="mb-8" aria-label="Breadcrumb">
         <ol className="flex items-center gap-2 text-sm text-gray-500">
-          <li><Link href="/" className="hover:text-gray-700">Home</Link></li>
-          <li>/</li>
-          <li><Link href="/shop" className="hover:text-gray-700">Shop</Link></li>
-          <li>/</li>
-          <li className="text-gray-900">{product.name}</li>
+          <li><Link href="/" className="hover:text-gray-700 cursor-pointer focus:outline-none focus-visible:underline">Home</Link></li>
+          <li aria-hidden="true">/</li>
+          <li><Link href="/shop" className="hover:text-gray-700 cursor-pointer focus:outline-none focus-visible:underline">Shop</Link></li>
+          <li aria-hidden="true">/</li>
+          <li className="text-gray-900" aria-current="page">{product.name}</li>
         </ol>
       </nav>
 
@@ -69,6 +70,14 @@ export default async function ProductDetailPage({
               {product.badge}
             </span>
           )}
+          {/* Wishlist button on image */}
+          <div className="absolute top-4 right-4">
+            <WishlistButton 
+              productId={product.id} 
+              productName={product.name}
+              size="lg"
+            />
+          </div>
         </div>
 
         {/* Product Info */}
