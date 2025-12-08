@@ -28,10 +28,10 @@ export default function WishlistPage() {
           <p className="text-gray-600 mb-6">Save your favorite items and access them anytime</p>
           <Link
             href="/login"
-            className="inline-flex items-center px-6 py-3 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition"
+            className="inline-flex items-center px-6 py-3 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#44AF69] focus-visible:ring-offset-2"
           >
             Sign In
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
           </Link>
         </div>
       </div>
@@ -67,10 +67,10 @@ export default function WishlistPage() {
             <p className="text-gray-600 mb-6">Browse our collection and save items you love</p>
             <Link
               href="/shop"
-              className="inline-flex items-center px-6 py-3 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition"
+              className="inline-flex items-center px-6 py-3 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#44AF69] focus-visible:ring-offset-2"
             >
               Start Shopping
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
             </Link>
           </div>
         ) : (
@@ -132,17 +132,19 @@ export default function WishlistPage() {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => handleMoveToCart(item)}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition text-sm"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#44AF69] text-white rounded-lg hover:bg-[#3d9d5f] transition text-sm cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#44AF69] focus-visible:ring-offset-2"
+                      aria-label={`Add ${item.name} to cart`}
                     >
-                      <ShoppingCart className="w-4 h-4" />
+                      <ShoppingCart className="w-4 h-4" aria-hidden="true" />
                       Add to Cart
                     </button>
                     <button
                       onClick={() => removeItem(item.productId)}
-                      className="p-2 border border-gray-200 rounded-lg hover:border-[#F8333C] hover:text-[#F8333C] transition"
+                      className="p-2 border border-gray-200 rounded-lg hover:border-[#F8333C] hover:text-[#F8333C] transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F8333C]"
                       title="Remove"
+                      aria-label={`Remove ${item.name} from wishlist`}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -155,13 +157,13 @@ export default function WishlistPage() {
         <div className="mt-12 flex flex-wrap gap-4 justify-center">
           <Link
             href="/shop"
-            className="px-6 py-3 border border-gray-200 rounded-lg hover:border-[#44AF69] hover:text-[#44AF69] transition"
+            className="px-6 py-3 border border-gray-200 rounded-lg hover:border-[#44AF69] hover:text-[#44AF69] transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#44AF69]"
           >
             Continue Shopping
           </Link>
           <Link
             href="/cart"
-            className="px-6 py-3 border border-gray-200 rounded-lg hover:border-[#44AF69] hover:text-[#44AF69] transition"
+            className="px-6 py-3 border border-gray-200 rounded-lg hover:border-[#44AF69] hover:text-[#44AF69] transition cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#44AF69]"
           >
             View Cart
           </Link>
