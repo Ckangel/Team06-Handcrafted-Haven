@@ -26,7 +26,7 @@ export default async function ArtisanProfilePage({
         <section className="flex flex-col md:flex-row gap-8 items-start mb-12">
           <div className="w-64 h-64 bg-gray-300 rounded-lg overflow-hidden">
             <img
-              src={artisan.profile_image || "https://via.placeholder.com/300"}
+              src={artisan.profile_image || "/no-image-placeholder.jpg"}
               alt={artisan.name}
               className="w-full h-full object-cover"
             />
@@ -51,7 +51,7 @@ export default async function ArtisanProfilePage({
             <div key={product.id} className="cursor-pointer">
               <div className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden">
                 <img
-                  src={product.image_url ?? "https://via.placeholder.com/400"}
+                  src={product.image_url ?? "/no-image-placeholder.jpg"}
                   className="w-full h-full object-cover hover:scale-105 transition-transform"
                 />
               </div>

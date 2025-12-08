@@ -2,7 +2,7 @@ import { sql } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 
 // Default fallback image when product images fail to load
-const FALLBACK_IMAGE = "https://placehold.co/500x500/e2e8f0/64748b?text=No+Image";
+const FALLBACK_IMAGE = "/no-image-placeholder.jpg";
 
 export async function GET() {
   try {
