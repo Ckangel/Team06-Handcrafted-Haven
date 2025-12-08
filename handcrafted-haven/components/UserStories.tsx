@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,17 +78,37 @@ export default function UserStories() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>(initialTestimonials);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ name: "", location: "", story: "", product: "", rating: 5 });
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(1); // start at first real slide after leading clone
   const [isPaused, setIsPaused] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+
+  // Build an infinite loop carousel by cloning edges
+  const loopSlides = useMemo(() => {
+    if (testimonials.length <= 1) return testimonials;
+    return [
+      testimonials[testimonials.length - 1],
+      ...testimonials,
+      testimonials[0],
+    ];
+  }, [testimonials]);
+
+  const totalSlides = testimonials.length;
+  const effectiveIndex = totalSlides
+    ? (currentSlide - 1 + totalSlides) % totalSlides
+    : 0;
 
   // Auto-advance slideshow for unauthenticated users
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
+    if (totalSlides <= 1) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => prev + 1);
+  }, [totalSlides]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }, [testimonials.length]);
+    if (totalSlides <= 1) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => prev - 1);
+  }, [totalSlides]);
 
   useEffect(() => {
     if (!isAuthenticated && !isPaused) {
@@ -96,6 +116,20 @@ export default function UserStories() {
       return () => clearInterval(interval);
     }
   }, [isAuthenticated, isPaused, nextSlide]);
+
+  const handleTransitionEnd = () => {
+    if (loopSlides.length <= 1) return;
+    // Jump without transition when hitting clones
+    if (currentSlide === loopSlides.length - 1) {
+      setIsTransitioning(false);
+      setCurrentSlide(1);
+    } else if (currentSlide === 0) {
+      setIsTransitioning(false);
+      setCurrentSlide(loopSlides.length - 2);
+    } else if (!isTransitioning) {
+      setIsTransitioning(true);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -301,12 +335,13 @@ export default function UserStories() {
           >
             {/* Main Carousel */}
             <div className="overflow-hidden rounded-3xl">
-              <div 
-                className="flex transition-transform duration-500 ease-in-out"
+              <div
+                className={`flex ${isTransitioning ? "transition-transform duration-500 ease-in-out" : ""}`}
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                onTransitionEnd={handleTransitionEnd}
               >
-                {testimonials.map((testimonial) => (
-                  <div key={testimonial.id} className="w-full flex-shrink-0 p-2">
+                {(loopSlides.length ? loopSlides : testimonials).map((testimonial, idx) => (
+                  <div key={`${testimonial.id}-${idx}`} className="w-full flex-shrink-0 p-2">
                     <TestimonialCard testimonial={testimonial} className="mx-auto max-w-2xl" />
                   </div>
                 ))}
@@ -340,12 +375,16 @@ export default function UserStories() {
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setCurrentSlide(idx)}
+                  onClick={() => {
+                    if (totalSlides <= 1) return;
+                    setIsTransitioning(true);
+                    setCurrentSlide(idx + 1);
+                  }}
                   className={`w-3 h-3 rounded-full transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B9EB3] ${
-                    idx === currentSlide ? "bg-[#2B9EB3]" : "bg-gray-300 hover:bg-gray-400"
+                    idx === effectiveIndex ? "bg-[#2B9EB3]" : "bg-gray-300 hover:bg-gray-400"
                   }`}
                   aria-label={`Go to testimonial ${idx + 1}`}
-                  aria-selected={idx === currentSlide}
+                  aria-selected={idx === effectiveIndex}
                   role="tab"
                 />
               ))}

@@ -120,7 +120,7 @@ export async function GET() {
     // ========================
     const productsData = [
       // Pottery (seller 0)
-      { seller_idx: 0, category: "Pottery", name: "Decorative Clay Pot", price: 45.00, original_price: 60.00, image_url: "https://images.unsplash.com/photo-1602526215346-2f3b909a87e4?w=500", badge: "Popular" },
+      { seller_idx: 0, category: "Pottery", name: "Decorative Clay Pot", price: 45.00, original_price: 60.00, image_url: "https://m.media-amazon.com/images/I/71vAWzQi3xL.jpg", badge: "Popular" },
       { seller_idx: 0, category: "Pottery", name: "Hand Painted Ceramic Vase", price: 75.00, original_price: 95.00, image_url: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=500", badge: "Limited" },
       { seller_idx: 0, category: "Pottery", name: "Rustic Terracotta Bowl", price: 35.00, original_price: null, image_url: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=500", badge: null },
       { seller_idx: 0, category: "Pottery", name: "Glazed Stoneware Mug Set", price: 55.00, original_price: 70.00, image_url: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500", badge: "Bestseller" },
