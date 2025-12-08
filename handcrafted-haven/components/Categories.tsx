@@ -102,13 +102,14 @@ export function Categories() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6" role="list" aria-label="Product categories">
             {displayCategories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/shop?category=${encodeURIComponent(category.name)}`}
-                className="p-6 rounded-xl bg-white shadow-sm hover:shadow-lg border border-gray-100 hover:border-amber-200 transition-all cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
-                role="listitem"
-                aria-label={`${category.name} - ${category.productCount} ${Number(category.productCount) === 1 ? "item" : "items"}`}
-              >
+                  <Link
+                    key={category.id}
+                    href={`/shop?category=${encodeURIComponent(category.name)}`}
+                    className="p-6 rounded-xl bg-white shadow-sm hover:shadow-lg border border-gray-100 hover:border-amber-200 transition-all cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+                    role="listitem"
+                    aria-label={`${category.name} - ${category.productCount} ${Number(category.productCount) === 1 ? "item" : "items"}`}
+                    title={`View ${category.name} products`}
+                  >
                 <div className="flex flex-col items-center text-center space-y-3">
                   <div
                     className={`h-14 w-14 rounded-full bg-gradient-to-br ${
@@ -139,6 +140,7 @@ export function Categories() {
             <Link
               href="/categories"
               className="text-amber-600 hover:text-amber-700 font-medium inline-flex items-center gap-1 cursor-pointer focus:outline-none focus-visible:underline"
+              title="Browse all categories"
             >
               View all categories →
             </Link>
