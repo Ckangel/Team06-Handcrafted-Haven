@@ -128,8 +128,8 @@ export default function SellerReviewsPage() {
                     </div>
 
                     {/* Comment */}
-                    {review.content && (
-                      <p className="text-gray-600 mb-2">&quot;{review.content}&quot;</p>
+                    {review.comment && (
+                      <p className="text-gray-600 mb-2">&quot;{review.comment}&quot;</p>
                     )}
 
                     {/* Reviewer & Date */}
