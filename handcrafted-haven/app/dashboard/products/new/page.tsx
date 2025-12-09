@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Save, Package } from "lucide-react";
+import { useToast } from "@/app/context/ToastContext";
 
 interface Category {
   id: number;
@@ -16,6 +17,7 @@ export default function NewProductPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const { showToast } = useToast();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -72,14 +74,27 @@ export default function NewProductPage() {
       });
 
       if (res.ok) {
+        showToast({
+          tone: "success",
+          title: "Product created",
+          description: "Your new product is now listed.",
+        });
         router.push("/dashboard/products");
       } else {
         const data = await res.json();
-        alert(data.error || "Failed to create product");
+        showToast({
+          tone: "error",
+          title: "Create failed",
+          description: data.error || "Please try again in a moment.",
+        });
       }
     } catch (error) {
       console.error("Error creating product:", error);
-      alert("Failed to create product");
+      showToast({
+        tone: "error",
+        title: "Create failed",
+        description: "Something went wrong. Please try again.",
+      });
     } finally {
       setLoading(false);
     }

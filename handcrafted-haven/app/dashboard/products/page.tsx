@@ -14,6 +14,7 @@ import {
   Loader2,
   ArrowLeft,
 } from "lucide-react";
+import { useToast } from "@/app/context/ToastContext";
 
 interface Product {
   id: number;
@@ -35,6 +36,7 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [deleting, setDeleting] = useState<number | null>(null);
+  const { showToast } = useToast();
 
   const role = (session?.user as any)?.role;
 
@@ -75,12 +77,25 @@ export default function ProductsPage() {
 
       if (res.ok) {
         setProducts(products.filter((p) => p.id !== productId));
+        showToast({
+          tone: "success",
+          title: "Product deleted",
+          description: "The product has been removed from your shop.",
+        });
       } else {
-        alert("Failed to delete product");
+        showToast({
+          tone: "error",
+          title: "Delete failed",
+          description: "We couldn't delete that product. Please retry.",
+        });
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      alert("Failed to delete product");
+      showToast({
+        tone: "error",
+        title: "Delete failed",
+        description: "Something went wrong. Please try again.",
+      });
     } finally {
       setDeleting(null);
     }
