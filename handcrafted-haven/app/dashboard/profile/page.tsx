@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Save, User } from "lucide-react";
+import { useToast } from "@/app/context/ToastContext";
 
 interface Profile {
   id: number;
@@ -21,6 +22,7 @@ export default function SellerProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isNew, setIsNew] = useState(false);
+  const { showToast } = useToast();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -90,15 +92,27 @@ export default function SellerProfilePage() {
         if (isNew) {
           router.push("/dashboard");
         } else {
-          alert("Profile updated successfully!");
+          showToast({
+            tone: "success",
+            title: "Profile saved",
+            description: "Your shop profile has been updated.",
+          });
         }
       } else {
         const data = await res.json();
-        alert(data.error || "Failed to save profile");
+        showToast({
+          tone: "error",
+          title: "Save failed",
+          description: data.error || "Please try again in a moment.",
+        });
       }
     } catch (error) {
       console.error("Error saving profile:", error);
-      alert("Failed to save profile");
+      showToast({
+        tone: "error",
+        title: "Save failed",
+        description: "We couldn't update your profile right now.",
+      });
     } finally {
       setSaving(false);
     }

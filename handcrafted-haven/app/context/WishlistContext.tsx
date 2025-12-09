@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { useSession } from "next-auth/react";
+import { useToast } from "@/app/context/ToastContext";
 
 interface WishlistItem {
   productId: number;
@@ -27,8 +28,9 @@ interface WishlistContextType {
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [items, setItems] = useState<WishlistItem[]>([]);
+  const { showToast } = useToast();
 
   // Fetch wishlist from server when logged in
   const refreshWishlist = useCallback(async () => {
@@ -63,7 +65,11 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
   const addItem = useCallback(async (productId: number) => {
     if (status !== "authenticated") {
-      alert("Please sign in to add items to your wishlist");
+      showToast({
+        tone: "warning",
+        title: "Sign in required",
+        description: "Please sign in to add items to your wishlist.",
+      });
       return;
     }
 
@@ -74,13 +80,31 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ productId }),
       });
 
+      const data = await res.json().catch(() => null);
+
       if (res.ok) {
         await refreshWishlist();
+        showToast({
+          tone: "success",
+          title: "Saved to wishlist",
+          description: "We've added this item to your wishlist.",
+        });
+      } else {
+        showToast({
+          tone: "error",
+          title: "Could not add item",
+          description: data?.error || "Please try again in a moment.",
+        });
       }
     } catch (error) {
       console.error("Error adding to wishlist:", error);
+      showToast({
+        tone: "error",
+        title: "Wishlist error",
+        description: "We could not add that item right now.",
+      });
     }
-  }, [status, refreshWishlist]);
+  }, [status, refreshWishlist, showToast]);
 
   const removeItem = useCallback(async (productId: number) => {
     if (status !== "authenticated") return;

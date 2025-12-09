@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Save, Trash2 } from "lucide-react";
+import { useToast } from "@/app/context/ToastContext";
 
 interface Category {
   id: number;
@@ -21,6 +22,7 @@ export default function EditProductPage() {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const { showToast } = useToast();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -102,14 +104,27 @@ export default function EditProductPage() {
       });
 
       if (res.ok) {
+        showToast({
+          tone: "success",
+          title: "Product updated",
+          description: "Your changes have been saved.",
+        });
         router.push("/dashboard/products");
       } else {
         const data = await res.json();
-        alert(data.error || "Failed to update product");
+        showToast({
+          tone: "error",
+          title: "Update failed",
+          description: data.error || "Please try again in a moment.",
+        });
       }
     } catch (error) {
       console.error("Error updating product:", error);
-      alert("Failed to update product");
+      showToast({
+        tone: "error",
+        title: "Update failed",
+        description: "Something went wrong while saving.",
+      });
     } finally {
       setSaving(false);
     }
@@ -127,13 +142,26 @@ export default function EditProductPage() {
       });
 
       if (res.ok) {
+        showToast({
+          tone: "success",
+          title: "Product deleted",
+          description: "The product was removed from your shop.",
+        });
         router.push("/dashboard/products");
       } else {
-        alert("Failed to delete product");
+        showToast({
+          tone: "error",
+          title: "Delete failed",
+          description: "We couldn't delete that product. Please retry.",
+        });
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      alert("Failed to delete product");
+      showToast({
+        tone: "error",
+        title: "Delete failed",
+        description: "Something went wrong. Please try again.",
+      });
     } finally {
       setDeleting(false);
     }
