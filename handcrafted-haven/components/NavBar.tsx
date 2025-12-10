@@ -184,8 +184,11 @@ export default function Navbar() {
                           Seller Dashboard
                         </Link>
                       )}
+                      {/* TODO: Replace hardcoded URL with NEXT_PUBLIC_APP_URL env variable
+                          Add NEXT_PUBLIC_APP_URL=http://localhost:3000 to .env.local
+                          Add NEXT_PUBLIC_APP_URL=https://handcrafted-haven-sigma.vercel.app to Vercel env vars */}
                       <button
-                        onClick={() => signOut({ callbackUrl: "/" })}
+                        onClick={() => signOut({ callbackUrl: "https://handcrafted-haven-sigma.vercel.app/" })}
                         className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer focus:outline-none focus-visible:bg-red-50"
                         title="Sign out of your account"
                       >
@@ -324,8 +327,9 @@ export default function Navbar() {
                     Seller Dashboard
                   </Link>
                 )}
+                {/* TODO: Replace hardcoded URL with NEXT_PUBLIC_APP_URL env variable */}
                 <button
-                  onClick={() => signOut({ callbackUrl: "/" })}
+                  onClick={() => signOut({ callbackUrl: "https://handcrafted-haven-sigma.vercel.app/" })}
                   className="block w-full text-left px-2 py-2 text-sm text-red-600"
                 >
                   Sign Out
