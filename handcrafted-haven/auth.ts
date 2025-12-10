@@ -6,6 +6,10 @@ import bcrypt from "bcryptjs";
 import { sql } from "@/app/lib/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  // TEMPORARY: Hardcoded production URL to fix sign-out redirect issue
+  // TODO: Remove once NEXTAUTH_URL_INTERNAL is properly configured in production env
+  trustHost: true,
+  
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID!,

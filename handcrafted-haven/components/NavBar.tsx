@@ -2,6 +2,7 @@
 import { ShoppingCart, User, Heart, Menu, LogOut, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useCart } from "@/app/context/CartContext";
 import { useWishlist } from "@/app/context/WishlistContext";
@@ -10,6 +11,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const { data: session, status } = useSession();
   const { itemCount } = useCart();
@@ -47,22 +49,34 @@ export default function Navbar() {
             <nav aria-label="Global">
               <ul className="flex items-center gap-6 text-sm font-semibold">
                 <li>
-                  <Link href="/shop" className="text-gray-600 hover:text-gray-900">
+                  <Link 
+                    href="/shop" 
+                    className={pathname === '/shop' ? 'text-[#44AF69] border-b-2 border-[#44AF69] pb-1' : 'text-gray-600 hover:text-gray-900'}
+                  >
                     Shop
                   </Link>
                 </li>
                 <li>
-                  <Link href="/artisans" className="text-gray-600 hover:text-gray-900">
+                  <Link 
+                    href="/artisans" 
+                    className={pathname === '/artisans' ? 'text-[#44AF69] border-b-2 border-[#44AF69] pb-1' : 'text-gray-600 hover:text-gray-900'}
+                  >
                     Artisans
                   </Link>
                 </li>
                 <li>
-                  <Link href="/categories" className="text-gray-600 hover:text-gray-900">
+                  <Link 
+                    href="/categories" 
+                    className={pathname === '/categories' ? 'text-[#44AF69] border-b-2 border-[#44AF69] pb-1' : 'text-gray-600 hover:text-gray-900'}
+                  >
                     Categories
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="text-gray-600 hover:text-gray-900">
+                  <Link 
+                    href="/about" 
+                    className={pathname === '/about' ? 'text-[#44AF69] border-b-2 border-[#44AF69] pb-1' : 'text-gray-600 hover:text-gray-900'}
+                  >
                     About
                   </Link>
                 </li>
@@ -221,22 +235,38 @@ export default function Navbar() {
         <div className="md:hidden bg-white px-6 pb-4 shadow-inner">
           <ul className="flex flex-col gap-4 text-gray-700 font-medium text-base py-4">
             <li>
-              <Link href="/shop" onClick={() => setMobileOpen(false)}>
+              <Link 
+                href="/shop" 
+                onClick={() => setMobileOpen(false)}
+                className={pathname === '/shop' ? 'text-[#44AF69] font-semibold' : ''}
+              >
                 Shop
               </Link>
             </li>
             <li>
-              <Link href="/artisans" onClick={() => setMobileOpen(false)}>
+              <Link 
+                href="/artisans" 
+                onClick={() => setMobileOpen(false)}
+                className={pathname === '/artisans' ? 'text-[#44AF69] font-semibold' : ''}
+              >
                 Artisans
               </Link>
             </li>
             <li>
-              <Link href="/categories" onClick={() => setMobileOpen(false)}>
+              <Link 
+                href="/categories" 
+                onClick={() => setMobileOpen(false)}
+                className={pathname === '/categories' ? 'text-[#44AF69] font-semibold' : ''}
+              >
                 Categories
               </Link>
             </li>
             <li>
-              <Link href="/about" onClick={() => setMobileOpen(false)}>
+              <Link 
+                href="/about" 
+                onClick={() => setMobileOpen(false)}
+                className={pathname === '/about' ? 'text-[#44AF69] font-semibold' : ''}
+              >
                 About
               </Link>
             </li>
