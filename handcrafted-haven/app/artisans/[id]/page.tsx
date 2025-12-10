@@ -1,5 +1,3 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 import { getArtisanById, getProductsByArtisan } from "@/app/lib/data";
 
 export default async function ArtisanProfilePage({
@@ -22,16 +20,13 @@ export default async function ArtisanProfilePage({
   }
 
   return (
-    <>
-      <Navbar />
-
-      <main className="min-h-screen px-6 py-16 max-w-6xl mx-auto">
+      <div className="px-6 py-16 max-w-6xl mx-auto">
 
         {/* Artisan Header */}
         <section className="flex flex-col md:flex-row gap-8 items-start mb-12">
           <div className="w-64 h-64 bg-gray-300 rounded-lg overflow-hidden">
             <img
-              src={artisan.profile_image || "https://via.placeholder.com/300"}
+              src={artisan.profile_image || "/no-image-placeholder.jpg"}
               alt={artisan.name}
               className="w-full h-full object-cover"
             />
@@ -56,7 +51,7 @@ export default async function ArtisanProfilePage({
             <div key={product.id} className="cursor-pointer">
               <div className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden">
                 <img
-                  src={product.image_url ?? "https://via.placeholder.com/400"}
+                  src={product.image_url ?? "/no-image-placeholder.jpg"}
                   className="w-full h-full object-cover hover:scale-105 transition-transform"
                 />
               </div>
@@ -66,9 +61,6 @@ export default async function ArtisanProfilePage({
           ))}
         </div>
 
-      </main>
-
-      <Footer />
-    </>
+      </div>
   );
 }
