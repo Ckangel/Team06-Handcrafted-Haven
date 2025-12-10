@@ -6,8 +6,7 @@ import bcrypt from "bcryptjs";
 import { sql } from "@/app/lib/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  // TEMPORARY: Hardcoded production URL to fix sign-out redirect issue
-  // TODO: Remove once NEXTAUTH_URL_INTERNAL is properly configured in production env
+  // Allow NextAuth to use the request's host header for redirect URLs in production
   trustHost: true,
   
   providers: [
