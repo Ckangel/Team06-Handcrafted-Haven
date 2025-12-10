@@ -1,7 +1,9 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-import { getProducts } from "@/app/lib/data";
+import { getProducts, getCategories } from "@/app/lib/data";
 import CategoryFilter from "@/components/CategoryFilter";
+import Link from "next/link";
+import AddToCartButton from "@/components/AddToCartButton";
+import ProductImage from "@/components/ProductImage";
+import WishlistButton from "@/components/WishlistButton";
 
 export default async function ShopPage({
   searchParams,
@@ -12,46 +14,94 @@ export default async function ShopPage({
   const params = await searchParams;
   const category = (params?.category as string) || "";
 
-  const products = await getProducts();
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories(),
+  ]);
 
   const filtered = category
     ? products.filter((p) => p.category === category)
     : products;
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen px-6 py-16 max-w-7xl mx-auto">
+      <div className="px-6 py-16 max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 font-roboto text-accentBlue">
           Shop All Products
         </h1>
 
         {/* Filter */}
         <div className="mb-8">
-  <CategoryFilter currentCategory={category} />
-</div>
-
+          <CategoryFilter currentCategory={category} categories={categories} />
+        </div>
 
         {/* Products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div 
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          role="list"
+          aria-label="Products"
+        >
           {filtered.map((product) => (
-            <div key={product.id} className="flex flex-col cursor-pointer">
-              <div className="w-full h-64 mb-4 rounded-lg overflow-hidden bg-gray-200">
-                <img
-                  src={product.image_url ?? "https://via.placeholder.com/400"}
-
-                  alt={product.name}
-                  className="h-full w-full object-cover hover:scale-105 transition-transform"
-                />
+            <article 
+              key={product.id} 
+              className="group flex flex-col bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+              role="listitem"
+              aria-label={`${product.name} by ${product.artisan}`}
+            >
+              <Link 
+                href={`/shop/${product.id}`}
+                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-amber-500"
+                aria-label={`View details for ${product.name}`}
+              >
+                <div className="w-full h-64 overflow-hidden bg-gray-200 relative">
+                  <ProductImage
+                    src={product.image_url}
+                    alt={product.name}
+                    fill
+                    className="hover:scale-105 transition-transform"
+                  />
+                  {/* Wishlist Button */}
+                  <div className="absolute top-2 right-2 z-10">
+                    <WishlistButton 
+                      productId={product.id} 
+                      productName={product.name}
+                      showOnHover
+                    />
+                  </div>
+                </div>
+              </Link>
+              <div className="p-4 flex flex-col flex-1">
+                <Link href={`/shop/${product.id}`} className="hover:text-[#44AF69] cursor-pointer focus:outline-none focus-visible:underline">
+                  <h3 className="font-bold text-lg">{product.name}</h3>
+                </Link>
+                <p className="text-gray-500 text-sm">{product.artisan}</p>
+                <p className="text-sm text-gray-400">{product.category}</p>
+                <div className="flex items-center justify-between mt-auto pt-3">
+                  <p className="font-semibold text-lg" aria-label={`Price: $${product.price}`}>
+                    ${product.price}
+                  </p>
+                  <AddToCartButton 
+                    product={{
+                      id: String(product.id),
+                      name: product.name,
+                      price: Number(product.price),
+                      image: product.image_url ?? undefined,
+                      artisanName: product.artisan,
+                    }}
+                  />
+                </div>
               </div>
-              <h3 className="font-bold text-lg">{product.name}</h3>
-              <p className="text-gray-500 text-sm">{product.artisan}</p>
-              <p className="font-semibold">${product.price}</p>
-            </div>
+            </article>
           ))}
         </div>
-      </main>
-      <Footer />
-    </>
+
+        {filtered.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No products found in this category.</p>
+            <Link href="/shop" className="text-[#44AF69] hover:underline mt-2 inline-block">
+              View all products
+            </Link>
+          </div>
+        )}
+      </div>
   );
 }

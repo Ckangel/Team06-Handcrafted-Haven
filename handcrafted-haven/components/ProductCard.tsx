@@ -1,5 +1,7 @@
 "use client";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useWishlist } from "@/app/context/WishlistContext";
 
 interface ProductCardProps {
   id: string;
@@ -14,6 +16,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ 
+  id,
   name, 
   artisan, 
   price, 
@@ -23,8 +26,27 @@ export function ProductCard({
   image,
   badge
 }: ProductCardProps) {
+  const { isInWishlist, toggleItem } = useWishlist();
+  const [togglingWishlist, setTogglingWishlist] = useState(false);
+  const productId = Number(id);
+  const inWishlist = isInWishlist(productId);
+
+  const handleToggleWishlist = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTogglingWishlist(true);
+    try {
+      await toggleItem(productId);
+    } finally {
+      setTogglingWishlist(false);
+    }
+  };
+
   return (
-    <div className="group overflow-hidden border-2 rounded-xl hover:border-gray-300 hover:shadow-xl transition-all cursor-pointer bg-white">
+    <article 
+      className="group overflow-hidden rounded-xl hover:shadow-xl transition-all cursor-pointer bg-white shadow-sm border border-gray-100 hover:border-gray-200"
+      aria-label={`${name} by ${artisan}, $${price.toFixed(2)}`}
+    >
       
       {/* IMAGE */}
       <div className="relative aspect-square overflow-hidden bg-gray-100">
@@ -32,7 +54,7 @@ export function ProductCard({
           src={image}
           alt={name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          onError={(e) => (e.currentTarget.src = "/fallback.png")} 
+          onError={(e) => (e.currentTarget.src = "/no-image-placeholder.jpg")} 
         />
 
         {/* BADGE */}
@@ -44,9 +66,20 @@ export function ProductCard({
 
         {/* HEART BUTTON */}
         <button 
-          className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white p-2 rounded-full shadow"
+          className={`absolute top-3 right-3 transition-all bg-white p-2 rounded-full shadow cursor-pointer hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 ${
+            inWishlist ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          }`}
+          onClick={handleToggleWishlist}
+          disabled={togglingWishlist}
+          aria-label={inWishlist ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
+          aria-pressed={inWishlist}
         >
-          <Heart className="h-4 w-4 text-gray-700" />
+          {togglingWishlist ? (
+            <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+          ) : (
+            <Heart className={`h-4 w-4 transition-colors ${inWishlist ? "fill-red-500 text-red-500" : "text-gray-700 hover:text-red-500"}`} />
+          )}
+          <span className="sr-only">{inWishlist ? "Remove from wishlist" : "Add to wishlist"}</span>
         </button>
       </div>
 
@@ -80,11 +113,14 @@ export function ProductCard({
           </div>
 
           {/* NORMAL BUTTON */}
-          <button className="px-3 py-1 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700">
+          <button 
+            className="px-3 py-1 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 transition-all"
+            aria-label={`Add ${name} to cart`}
+          >
             Add to Cart
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

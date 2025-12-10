@@ -1,5 +1,3 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 import { getArtisans } from "@/app/lib/data";
 import Link from "next/link";
 
@@ -7,10 +5,7 @@ export default async function ArtisansPage() {
   const artisans = await getArtisans();
 
   return (
-    <>
-      <Navbar />
-
-      <main className="min-h-screen px-6 py-16 max-w-7xl mx-auto">
+      <div className="px-6 py-16 max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-4 font-roboto text-accentBlue">
           Meet Our Artisans
         </h1>
@@ -62,9 +57,6 @@ export default async function ArtisansPage() {
             </Link>
           ))}
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
   );
 }

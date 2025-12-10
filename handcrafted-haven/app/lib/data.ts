@@ -2,6 +2,11 @@ import { sql } from "./db";
 
 import type { Product } from "./types";
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 
 export async function getProducts(): Promise<Product[]> {
   return await sql<Product[]>`
@@ -9,7 +14,7 @@ export async function getProducts(): Promise<Product[]> {
       p.id,
       p.name,
       s.name AS artisan,
-      c.name AS category,
+      COALESCE(c.name, 'Uncategorized') AS category,
       p.price,
       p.original_price,
       p.image_url,
@@ -18,7 +23,7 @@ export async function getProducts(): Promise<Product[]> {
       COUNT(r.id) AS reviews
     FROM products p
     JOIN sellers s ON p.seller_id = s.id
-    JOIN categories c ON p.category_id = c.id
+    LEFT JOIN categories c ON p.category_id = c.id
     LEFT JOIN reviews r ON r.product_id = p.id
     GROUP BY p.id, s.name, c.name
     ORDER BY p.created_at DESC;
@@ -85,5 +90,11 @@ export async function getProductsByArtisan(artisanId: number) {
     JOIN categories c ON p.category_id = c.id
     WHERE p.seller_id = ${artisanId}
     ORDER BY p.created_at DESC;
+  `;
+}
+
+export async function getCategories(): Promise<Category[]> {
+  return await sql<Category[]>`
+    SELECT id, name FROM categories ORDER BY name ASC;
   `;
 }

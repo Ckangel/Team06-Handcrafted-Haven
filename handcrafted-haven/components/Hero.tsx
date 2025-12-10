@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 export default function Hero() {
   const leftRef = useRef(null);
@@ -38,13 +39,23 @@ export default function Hero() {
               Every purchase supports sustainable practices and creative communities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button  className="rounded-md bg-[#f8333c] px-5 py-2.5 text-sm font-medium text-white shadow-sm">
+              <Link 
+                href="/shop" 
+                className="inline-flex items-center rounded-md bg-[#f8333c] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#e02d35] transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f8333c] focus-visible:ring-offset-2"
+                aria-label="Browse our marketplace"
+                title="Explore marketplace"
+              >
                 Explore Marketplace
-               <ArrowRightIcon className="ml-2 h-5 w-5 text-white" />
-              </button>
-              <button >
+                <ArrowRightIcon className="ml-2 h-5 w-5 text-white" aria-hidden="true" />
+              </Link>
+              <Link 
+                href="/artisans" 
+                className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-gray-900 border-2 border-gray-900 rounded-md hover:bg-gray-900 hover:text-white transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                aria-label="View our artisans"
+                title="Meet our artisans"
+              >
                 Meet Our Artisans
-              </button>
+              </Link>
             </div>
             <div className="flex items-center gap-8 pt-4">
               <div>
